@@ -1,0 +1,28 @@
+<div class="profile-container">
+    <h2>Profile</h2>
+    <div class="profile-info">
+        <p><strong>Name:</strong> {{user.firstName}} {{user.lastName}}</p>
+        <p><strong>Email:</strong> {{user.email}}</p>
+    </div>
+    <button id="btnLogout">Logout</button>
+</div>
+
+<script>
+    const btnLogout = document.querySelector('#btnLogout');
+
+    btnLogout.addEventListener('click', async () => {
+        const response = await fetch('/api/sessions/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const responseData=await response.json();
+        if(responseData.status){
+            window.location.href=responseData.data.url;
+        }
+        else{
+            alert(responseData.message);
+        }
+    })
+</script>
