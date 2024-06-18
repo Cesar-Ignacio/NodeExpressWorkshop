@@ -11,6 +11,9 @@
         </div>
         <button type="submit">Login</button>
     </form>
+    <div>
+        <p id="message"></p>
+    </div>
     {{#if error}}
     <p class="error">{{error}}</p>
     {{/if}}
@@ -21,7 +24,7 @@
 
 <script>
     const form=document.querySelector("#form");
-
+    const message=document.querySelector('#message');
     form.addEventListener('submit',async(e)=>{
         e.preventDefault();
         const email=document.querySelector('#email').value;
@@ -31,7 +34,7 @@
             email,password
         }
 
-        const response=await fetch('/api/sessions/login',{
+        const response=await fetch('/api/tokens/login',{
             method:'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -46,6 +49,7 @@
         }else
         {
             alert(responseData.message);
+            message.innerText=responseData.data.payload;
         }
 
     })

@@ -11,7 +11,8 @@ routesViews.get('/register',(req,res)=>{
 })
 
 routesViews.get('/perfil',(req,res)=>{
-    res.status(200).render('perfil',{user:req.session.user})
+    //res.status(200).render('perfil',{user:req.session.user})
+    res.status(200).render('perfil',{user:{email:'ww@ss.com'}})
 })
 
 export default routesViews;
