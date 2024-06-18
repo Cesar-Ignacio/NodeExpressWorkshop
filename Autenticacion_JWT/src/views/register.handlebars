@@ -1,0 +1,64 @@
+<div class="register-container">
+    <h2>Register</h2>
+    <form id="form">
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+    {{#if error}}
+    <p class="error">{{error}}</p>
+    {{/if}}
+    <p>Already have an account? <a href="/login">Login here</a></p>
+</div>
+
+<script>
+    const form = document.querySelector('#form');
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault(); // Prevenir el envío por defecto del formulario
+
+        // Obtener los valores del formulario
+        // Obtener los valores del formulario
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        // Construir el objeto de datos a enviar
+        const formData = {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password
+        };
+
+        // Hacer el fetch POST
+        const response = await fetch('/api/users/createUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+
+        const responseData = await response.json();
+        if (responseData.status) {
+            window.location.href = responseData.data.url;
+        } else {
+            alert(responseData.message);
+        }
+    })
+</script>
