@@ -18,7 +18,7 @@ Este repositorio es mi espacio de aprendizaje, donde subo ejemplos, prácticas y
 
 En esta sección, encontrarás la documentación detallada de los ejemplos, prácticas y proyectos que he desarrollado. La documentación incluye instrucciones para la configuración, uso y explicación del código.
 
-- [📄 Autenticacion_JWT]([docs/ejemplo1.md](https://automatic-doom-2f5.notion.site/JWT-JsonWebToken-502548ad351f452089879d6cda095e3b?pvs=4))
+- [📄 Autenticacion_JWT](https://automatic-doom-2f5.notion.site/JWT-JsonWebToken-502548ad351f452089879d6cda095e3b)
 
 ### Ejemplos y Ejercicios de Node.js y Express
 Aquí se encuentran implementaciones básicas y avanzadas que cubren conceptos clave de Node.js y Express.
