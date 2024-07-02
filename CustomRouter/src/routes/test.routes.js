@@ -2,7 +2,6 @@ import CustomRouter from "./customRoutes.js";
 import { validacionCampos, autenticarUsuario } from "../middleware/validacion.middleware.js";
 export class TestRoutes extends CustomRouter {
 
-
     init() {
         this.get('/', (req, res, next) => {
             res.sendSuccess("Hola para todos")
