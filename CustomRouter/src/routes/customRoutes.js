@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {config} from '../config.js'
+import { config } from '../config.js'
 
 
 export default class CustomRouter {
@@ -27,8 +27,17 @@ export default class CustomRouter {
     }
 
     generateCustomResponses(req, res, next) {
+        // Método para 200 Success
         res.sendSuccess = payload => res.status(200).send({ origin: config.SERVER, payload: payload });
-        res.sendUserError = err => res.status(400).send({ origin: config.SERVER, payload: null, error: err.message });
+        // Método para 400 Bad Request
+        res.sendBadRequest = err => res.status(400).send({ origin: config.SERVER, payload: null, error: err });
+        // Método para 401 Unauthorized
+        res.sendUnauthorized = err => res.status(401).send({ origin: config.SERVER, payload: null, error: err });
+        // Método para 403 Forbidden
+        res.sendForbidden = err => res.status(403).send({ origin: config.SERVER, payload: null, error: err.message });
+        // Método para 404 Not Found
+        res.sendNotFound = err => res.status(404).send({ origin: config.SERVER, payload: null, error: err.message });
+        // Método para 500 Internal Server Error
         res.sendServerError = err => res.status(500).send({ origin: config.SERVER, payload: null, error: err.message });
         next();
     }

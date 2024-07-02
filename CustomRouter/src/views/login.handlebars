@@ -1,0 +1,62 @@
+<style>
+
+    .error{
+        color: red;
+    }
+    .success{
+        color:blue;
+    }
+
+</style>
+
+<div>
+    <form action="" id="form">
+        <div>
+            <label for="">Email</label>
+            <input type="email" name="" id="email">
+        </div>
+        <div>
+            <label for="">Password</label>
+            <input type="password" name="" id="password">
+        </div>
+        <button type="submit">Login</button>
+    </form>
+    <p  id="error" ></p>
+</div>
+
+<script>
+
+    const from = document.querySelector('#form');
+    const msError = document.querySelector('#error');
+
+    from.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.querySelector("#email").value;
+        const password = document.querySelector("#password").value;
+
+        const login = {
+            email, password
+        }
+
+        const response = await fetch('/api/test/login',{
+            method:'POST',
+             headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(login)
+        })
+
+        const responseData=await response.json();
+        if(responseData.payload)
+        {
+            msError.className="succes";
+            msError.innerText=responseData.payload
+        }
+        else{
+            msError.className="error";
+            msError.innerText=responseData.error
+        }
+})
+
+
+</script>
