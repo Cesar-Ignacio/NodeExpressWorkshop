@@ -1,12 +1,11 @@
 <style>
-
-    .error{
+    .error {
         color: red;
     }
-    .success{
-        color:blue;
-    }
 
+    .success {
+        color: blue;
+    }
 </style>
 
 <div>
@@ -22,7 +21,7 @@
         </div>
         <button type="submit">Login</button>
     </form>
-    <p  id="error" ></p>
+    <p id="error"></p>
 </div>
 
 <script>
@@ -39,25 +38,24 @@
             email, password
         }
 
-        const response = await fetch('/api/test/login',{
-            method:'POST',
-             headers: {
+        const response = await fetch('/api/test/login', {
+            method: 'POST',
+            headers: {
                 'Content-Type': 'application/json'
             },
-            body:JSON.stringify(login)
+            body: JSON.stringify(login)
         })
 
-        const responseData=await response.json();
-        if(responseData.payload)
-        {
-            msError.className="success";
-            msError.innerText=responseData.payload
+        const responseData = await response.json();
+        if (responseData.payload) {
+            msError.className = "success";
+            msError.innerText = responseData.payload
         }
-        else{
-            msError.className="error";
-            msError.innerText=responseData.error
+        else {
+            msError.className = "error";
+            msError.innerText = responseData.error
         }
-})
+    })
 
 
 </script>

@@ -1,0 +1,31 @@
+<div>
+    <h1>Sistema de Políticas</h1>
+    <form action="">
+        <label for="">Tipo de Usuario</label>
+        <select id="typeUser">
+            <option value="user">User</option>
+            <option value="premium">Premium</option>
+            <option value="admin">Admin</option>
+        </select>
+    </form>
+    <button id="btnPrueba">View User</button>
+    <button id="btnPrimium">View Primium</button>
+    <button id="btnAdmin">View Admin</button>
+</div>
+
+<script>
+    const typeUser = document.querySelector("#typeUser");
+    const btnPrueba = document.querySelector("#btnPrueba");
+    const btnPrimium = document.querySelector("#btnPrimium");
+    const btnAdmin = document.querySelector("#btnAdmin");
+
+    btnPrueba.addEventListener('click', async () => {
+        window.location.href = `/viewUser?user=${typeUser.value}`;
+    })
+    btnPrimium.addEventListener('click', async () => {
+        window.location.href = `/viewPrimium?user=${typeUser.value}`;
+    })
+    btnAdmin.addEventListener('click', async () => {
+        window.location.href = `/viewAdmin?user=${typeUser.value}`;
+    })
+</script>
