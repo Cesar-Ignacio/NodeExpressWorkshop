@@ -15,15 +15,14 @@ export const initAuthStrategies = () => {
             try {
                 const foundUser = await modelUser.findOne({ email: username });
                 if (!foundUser) {
-                    return done(null, " ", { message: 'Usuario no encontrado' });
+                    return done(null, false, { message: 'No se encontro el usuario' });
                 }
 
                 if (foundUser && await checkPassword(password, foundUser.password)) {
-                    //const { password, ...filteredFoundUser } = foundUser;
                     return done(null, foundUser, { message: 'Autenticacíon existosa' });
-                } else {
 
-                    return done(null, " ", { message: 'Contraseña incorrecta' });
+                } else {
+                    return done(null, false, { message: 'Contraseña incorrecta', email: foundUser.email });
                 }
             } catch (err) {
                 return done(err, false);
@@ -40,14 +39,14 @@ export const initAuthStrategies = () => {
                         ...req.body,
                         password: await hashPassword(password)
                     }
-                    const newUser=new modelUser(user);
+                    const newUser = new modelUser(user);
                     await newUser.save();
                     return done(null, newUser, { message: 'Usuario registado' });
                 } else {
-                    return done(null, " ", { message: 'El email ya esta registrado' });
+                    return done(null, false, { message: 'El email ya esta registrado' });
                 }
             } catch (err) {
-                return done(null, " ", { message: err.message });
+                return done(null, false, { message: err.message });
             }
 
         }));
@@ -97,4 +96,21 @@ export const initAuthStrategies = () => {
         done(null, user);
     });
 
+}
+
+export const passportCall = (stategy) => {
+    return (req, res, next) => {
+        passport.authenticate(stategy, function (err, user, info) {
+            if (err) {
+                return next(err);
+            };
+            if (!user) {
+                console.log(`${info.message} ${info.email || ''} ${req.ip}`);
+                return res.status(401).send({ status: false, message: info.message });
+            }
+            req.authInfo = { message: info.message };
+            req.user = user;
+            next();
+        })(req, res, next)
+    }
 }
